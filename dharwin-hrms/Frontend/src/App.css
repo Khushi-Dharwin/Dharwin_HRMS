@@ -1,7 +1,7 @@
 .hrms-layout {
   min-height: 100vh;
 
-  background: #f4f6f8;
+  background: var(--page-background);
 }
 
 .hrms-content {
@@ -11,7 +11,7 @@
 }
 
 .page-content {
-  min-height: calc(100vh - 82px);
+  min-height: calc(100vh - 66px);
 }
 
 .placeholder-page {
@@ -21,13 +21,13 @@
 .placeholder-page h1 {
   margin: 0;
 
-  color: #0b1f3f;
+  color: var(--text-primary);
 
   font-size: 24px;
 }
 
 .placeholder-page p {
-  color: #718096;
+  color: var(--text-secondary);
 
   font-size: 13px;
 }

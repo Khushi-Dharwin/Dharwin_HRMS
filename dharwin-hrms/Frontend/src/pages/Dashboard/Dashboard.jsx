@@ -1,4 +1,13 @@
-import React from "react";
+import AccessTimeOutlined from "@mui/icons-material/AccessTimeOutlined";
+import AddOutlined from "@mui/icons-material/AddOutlined";
+import CampaignOutlined from "@mui/icons-material/CampaignOutlined";
+import CheckCircleOutlined from "@mui/icons-material/CheckCircleOutlined";
+import ErrorOutlined from "@mui/icons-material/ErrorOutlined";
+import PersonAddAlt1Outlined from "@mui/icons-material/PersonAddAlt1Outlined";
+import { CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import diwaliImage from "../../assets/icons/Diwali.png";
+import dussheraImage from "../../assets/icons/Dussheraa.jpg";
+import gandhiJayantiImage from "../../assets/icons/Gandhi Jayanti.jpg";
 import "./Dashboard.css";
 
 function Dashboard() {
@@ -27,20 +36,52 @@ function Dashboard() {
     {
       name: "Gandhi Jayanti",
       date: "02 Oct 2026",
-      icon: "🕊️",
+      image: gandhiJayantiImage,
       remaining: "7 days",
     },
     {
       name: "Dussehra",
       date: "20 Oct 2026",
-      icon: "🏹",
+      image: dussheraImage,
       remaining: "25 days",
     },
     {
       name: "Diwali",
       date: "08 Nov 2026",
-      icon: "🪔",
+      image: diwaliImage,
       remaining: "44 days",
+    },
+  ];
+
+  const attendance = [
+    { day: "Mon", value: 92 },
+    { day: "Tue", value: 88 },
+    { day: "Wed", value: 95 },
+    { day: "Thu", value: 81 },
+    { day: "Fri", value: 94 },
+  ];
+
+  const outToday = [
+    {
+      name: "Priya Shah",
+      initials: "PS",
+      reason: "Casual leave",
+      details: "28 Sep 2026 - 29 Sep 2026 · 2 days",
+      status: "Approved",
+    },
+    {
+      name: "Amit Rao",
+      initials: "AR",
+      reason: "Sick leave",
+      details: "28 Sep 2026 - 30 Sep 2026 · 3 days",
+      status: "Sick",
+    },
+    {
+      name: "Neha Joshi",
+      initials: "NJ",
+      reason: "Work from home",
+      details: "28 Sep 2026 · 1 day",
+      status: "Remote",
     },
   ];
 
@@ -86,7 +127,7 @@ function Dashboard() {
           <div className="kpi-top">
             <span>Present Today</span>
             <div className="kpi-icon green">
-              ✓
+              <CheckCircleOutlined />
             </div>
           </div>
 
@@ -102,7 +143,7 @@ function Dashboard() {
             <span>On Leave</span>
 
             <div className="kpi-icon orange">
-              ◷
+              <AccessTimeOutlined />
             </div>
           </div>
 
@@ -118,7 +159,7 @@ function Dashboard() {
             <span>Pending Approvals</span>
 
             <div className="kpi-icon red">
-              !
+              <ErrorOutlined />
             </div>
           </div>
 
@@ -134,7 +175,7 @@ function Dashboard() {
             <span>Onboarding</span>
 
             <div className="kpi-icon blue">
-              ♙
+              <PersonAddAlt1Outlined />
             </div>
           </div>
 
@@ -227,31 +268,80 @@ function Dashboard() {
             </div>
 
             <div className="attendance-chart">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={attendance} margin={{ top: 14, right: 16, bottom: 0, left: 0 }}>
+                  <CartesianGrid vertical={false} stroke="var(--chart-grid)" strokeDasharray="3 3" />
+                  <XAxis
+                    dataKey="day"
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fill: "var(--text-muted)", fontSize: 11 }}
+                    dy={8}
+                  />
+                  <YAxis
+                    domain={[70, 100]}
+                    ticks={[70, 80, 90, 100]}
+                    axisLine={false}
+                    tickLine={false}
+                    tickFormatter={(value) => `${value}%`}
+                    tick={{ fill: "var(--text-muted)", fontSize: 10 }}
+                    width={42}
+                  />
+                  <Tooltip
+                    formatter={(value) => [`${value}%`, "Attendance"]}
+                    contentStyle={{
+                      backgroundColor: "var(--surface-background)",
+                      border: "1px solid var(--border-color)",
+                      borderRadius: 8,
+                      color: "var(--text-primary)",
+                      fontSize: 12,
+                    }}
+                  />
+                  <ReferenceLine
+                    y={90}
+                    stroke="#d19a36"
+                    strokeDasharray="5 4"
+                    label={{ value: "90% target", position: "insideTopRight", fill: "#a8751f", fontSize: 10 }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="value"
+                    name="Attendance"
+                    stroke="#2d9b57"
+                    strokeWidth={3}
+                    dot={{ r: 4, fill: "#ffffff", stroke: "#2d9b57", strokeWidth: 2 }}
+                    activeDot={{ r: 6, fill: "#2d9b57", stroke: "#ffffff", strokeWidth: 2 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
 
-              {[
-                ["Mon", 92],
-                ["Tue", 88],
-                ["Wed", 95],
-                ["Thu", 81],
-                ["Fri", 94],
-              ].map(([day, value]) => (
-                <div className="chart-column" key={day}>
+          {/* Out Today */}
+          <div className="dashboard-card">
+            <div className="card-heading">
+              <div>
+                <h2>Today’s Workforce Status</h2>
+                <p>Employees away or working remotely</p>
+              </div>
+              <span className="out-today-count">{outToday.length}</span>
+            </div>
 
-                  <span>{value}%</span>
-
-                  <div className="chart-bar-container">
-                    <div
-                      className="chart-bar"
-                      style={{
-                        height: `${value}%`,
-                      }}
-                    />
+            <div className="out-today-list">
+              {outToday.map((person) => (
+                <div className="out-today-row" key={person.name}>
+                  <div className="employee-avatar">{person.initials}</div>
+                  <div className="out-today-info">
+                    <strong>{person.name}</strong>
+                    <span>{person.reason}</span>
+                    <small>{person.details}</small>
                   </div>
-
-                  <small>{day}</small>
+                  <span className={`out-today-status ${person.status.toLowerCase()}`}>
+                    <span aria-hidden="true" />
+                    {person.status}
+                  </span>
                 </div>
               ))}
-
             </div>
           </div>
 
@@ -273,22 +363,22 @@ function Dashboard() {
             <div className="quick-actions">
 
               <button>
-                <span>＋</span>
+                <span className="quick-action-icon"><AddOutlined /></span>
                 Apply for Leave
               </button>
 
               <button>
-                <span>◷</span>
+                <span className="quick-action-icon"><AccessTimeOutlined /></span>
                 Regularize Attendance
               </button>
 
               <button>
-                <span>♙</span>
+                <span className="quick-action-icon"><PersonAddAlt1Outlined /></span>
                 Add Employee
               </button>
 
               <button>
-                <span>✎</span>
+                <span className="quick-action-icon"><CampaignOutlined /></span>
                 Post Announcement
               </button>
 
@@ -314,7 +404,7 @@ function Dashboard() {
                 <div className="simple-row" key={holiday.name}>
 
                   <div className="list-icon">
-                    {holiday.icon}
+                    <img src={holiday.image} alt={`${holiday.name} celebration`} />
                   </div>
 
                   <div className="simple-info">

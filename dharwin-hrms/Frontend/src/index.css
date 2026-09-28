@@ -2,6 +2,32 @@
   box-sizing: border-box;
 }
 
+:root {
+  color-scheme: light;
+  --page-background: #f4f6f8;
+  --surface-background: #ffffff;
+  --surface-muted: #f5f7f9;
+  --surface-hover: #f3f6f8;
+  --border-color: #e5e8ec;
+  --text-primary: #172a46;
+  --text-secondary: #718096;
+  --text-muted: #8995a2;
+  --chart-grid: #e8edf0;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page-background: #0b1422;
+  --surface-background: #111f33;
+  --surface-muted: #14243a;
+  --surface-hover: #1a2c43;
+  --border-color: #293b51;
+  --text-primary: #e8eef6;
+  --text-secondary: #b1bfd0;
+  --text-muted: #8ea0b5;
+  --chart-grid: #2c4058;
+}
+
 html,
 body,
 #root {
@@ -13,7 +39,8 @@ body,
 }
 
 body {
-  background: #f4f6f8;
+  background: var(--page-background);
+  color: var(--text-primary);
 }
 
 button,
@@ -32,4 +59,163 @@ input:focus-visible,
 select:focus-visible {
   outline: 2px solid #2d9b38;
   outline-offset: 2px;
+}
+
+:root[data-theme="dark"] .sidebar,
+:root[data-theme="dark"] .header,
+:root[data-theme="dark"] .dashboard-card,
+:root[data-theme="dark"] .header-dropdown,
+:root[data-theme="dark"] .mobile-menu-button {
+  background: var(--surface-background);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+:root[data-theme="dark"] .sidebar-logo,
+:root[data-theme="dark"] .header,
+:root[data-theme="dark"] .approval-row,
+:root[data-theme="dark"] .simple-row,
+:root[data-theme="dark"] .out-today-row,
+:root[data-theme="dark"] .notification-item,
+:root[data-theme="dark"] .dropdown-header {
+  border-color: var(--border-color);
+}
+
+:root[data-theme="dark"] .header-icon-button,
+:root[data-theme="dark"] .dashboard-select,
+:root[data-theme="dark"] .sidebar-help,
+:root[data-theme="dark"] .quick-actions button {
+  background: var(--surface-muted);
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+}
+
+:root[data-theme="dark"] .header-icon-button:hover,
+:root[data-theme="dark"] .mobile-menu-button:hover,
+:root[data-theme="dark"] .profile-button:hover,
+:root[data-theme="dark"] .notification-item:hover,
+:root[data-theme="dark"] .profile-dropdown button:hover,
+:root[data-theme="dark"] .sidebar-item:hover,
+:root[data-theme="dark"] .sidebar-subitem:hover {
+  background: var(--surface-hover);
+}
+
+:root[data-theme="dark"] .logo-content h2,
+:root[data-theme="dark"] .sidebar-item,
+:root[data-theme="dark"] .sidebar-item:hover,
+:root[data-theme="dark"] .sidebar-help strong,
+:root[data-theme="dark"] .header-date,
+:root[data-theme="dark"] .profile-info strong,
+:root[data-theme="dark"] .dropdown-header strong,
+:root[data-theme="dark"] .notification-item strong,
+:root[data-theme="dark"] .profile-dropdown button,
+:root[data-theme="dark"] .dashboard-heading h1,
+:root[data-theme="dark"] .card-heading h2,
+:root[data-theme="dark"] .kpi-card strong,
+:root[data-theme="dark"] .approval-info strong,
+:root[data-theme="dark"] .out-today-info strong,
+:root[data-theme="dark"] .simple-info strong,
+:root[data-theme="dark"] .placeholder-page h1 {
+  color: var(--text-primary);
+}
+
+:root[data-theme="dark"] .sidebar-section-title,
+:root[data-theme="dark"] .sidebar-subitem,
+:root[data-theme="dark"] .sidebar-help span,
+:root[data-theme="dark"] .profile-info span,
+:root[data-theme="dark"] .notification-item span,
+:root[data-theme="dark"] .notification-item small,
+:root[data-theme="dark"] .dashboard-heading p,
+:root[data-theme="dark"] .card-heading p,
+:root[data-theme="dark"] .kpi-top span,
+:root[data-theme="dark"] .kpi-card small,
+:root[data-theme="dark"] .approval-info p,
+:root[data-theme="dark"] .out-today-info span,
+:root[data-theme="dark"] .out-today-info small,
+:root[data-theme="dark"] .simple-info span,
+:root[data-theme="dark"] .placeholder-page p {
+  color: var(--text-secondary);
+}
+
+:root[data-theme="dark"] .sidebar-item-active,
+:root[data-theme="dark"] .sidebar-item-active:hover {
+  background: #17382a;
+  color: #7ee0a1;
+}
+
+:root[data-theme="dark"] .sidebar-submenu {
+  border-color: #3b526b;
+}
+
+:root[data-theme="dark"] .sidebar-subitem-active,
+:root[data-theme="dark"] .sidebar-subitem-active:hover {
+  background: #15372f;
+  color: #7de0c0;
+}
+
+:root[data-theme="dark"] .sidebar-subitem-dot {
+  box-shadow: 0 0 0 3px var(--surface-background);
+}
+
+:root[data-theme="dark"] .help-icon,
+:root[data-theme="dark"] .employee-avatar {
+  background: #193c31;
+  color: #86dfac;
+}
+
+:root[data-theme="dark"] .header-dropdown {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+}
+
+:root[data-theme="dark"] .dashboard-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+:root[data-theme="dark"] .kpi-icon.green,
+:root[data-theme="dark"] .out-today-count,
+:root[data-theme="dark"] .out-today-status.approved,
+:root[data-theme="dark"] .green-status {
+  background: #17382a;
+  color: #85dfa2;
+}
+
+:root[data-theme="dark"] .kpi-icon.orange,
+:root[data-theme="dark"] .approval-tag,
+:root[data-theme="dark"] .out-today-status.remote {
+  background: #3b3020;
+  color: #f2c66f;
+}
+
+:root[data-theme="dark"] .kpi-icon.red,
+:root[data-theme="dark"] .out-today-status.sick {
+  background: #402922;
+  color: #ff9b78;
+}
+
+:root[data-theme="dark"] .kpi-icon.blue {
+  background: #1c3049;
+  color: #91bfff;
+}
+
+:root[data-theme="dark"] .approve-button {
+  background: #278746;
+  border-color: #278746;
+  color: #ffffff;
+}
+
+:root[data-theme="dark"] .reject-button,
+:root[data-theme="dark"] .wish-button {
+  background: var(--surface-muted);
+  border-color: var(--border-color);
+  color: #ff9b78;
+}
+
+:root[data-theme="dark"] .quick-actions button:hover {
+  background: #17382a;
+  border-color: #32664a;
+  color: #9ce6b5;
+}
+
+:root[data-theme="dark"] .list-icon {
+  background: #193c31;
 }

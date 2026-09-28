@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Sidebar/Header/Header";
@@ -10,6 +10,15 @@ function App() {
   const [activePage, setActivePage] = useState("dashboard");
 
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [theme, setTheme] = useState(() =>
+    localStorage.getItem("dharwin-theme") === "dark" ? "dark" : "light"
+  );
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
+    localStorage.setItem("dharwin-theme", theme);
+  }, [theme]);
 
   const renderPage = () => {
     switch (activePage) {
@@ -36,7 +45,7 @@ function App() {
   };
 
   return (
-    <div className="hrms-layout">
+    <div className="hrms-layout" data-theme={theme}>
 
       <Sidebar
         activePage={activePage}
@@ -49,6 +58,10 @@ function App() {
 
         <Header
           setMobileOpen={setMobileOpen}
+          theme={theme}
+          onToggleTheme={() =>
+            setTheme((currentTheme) => currentTheme === "light" ? "dark" : "light")
+          }
         />
 
         <main className="page-content">

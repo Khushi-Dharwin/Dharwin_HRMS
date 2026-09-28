@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import DarkModeOutlined from "@mui/icons-material/DarkModeOutlined";
+import LightModeOutlined from "@mui/icons-material/LightModeOutlined";
+import MenuOutlined from "@mui/icons-material/MenuOutlined";
+import NotificationsNoneOutlined from "@mui/icons-material/NotificationsNoneOutlined";
 import "./Header.css";
 
-function Header({ setMobileOpen }) {
+function Header({ setMobileOpen, theme, onToggleTheme }) {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
 
@@ -17,29 +21,26 @@ function Header({ setMobileOpen }) {
       {/* Mobile Menu */}
       <button
         className="mobile-menu-button"
+        aria-label="Open navigation menu"
         onClick={() => setMobileOpen(true)}
       >
-        ☰
+        <MenuOutlined />
       </button>
-
-      {/* Search */}
-      {/* <div className="header-search">
-        <span className="search-icon">⌕</span>
-
-        <input
-          type="text"
-          placeholder="Search employees, requests..."
-        />
-
-        <span className="search-shortcut">⌘ K</span>
-      </div> */}
 
       <div className="header-spacer" />
 
       {/* Date */}
-      <div className="header-date">
-        {today}
-      </div>
+      <div className="header-date">{today}</div>
+
+      <button
+        className="header-icon-button theme-button"
+        aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+        aria-pressed={theme === "dark"}
+        onClick={onToggleTheme}
+        title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+      >
+        {theme === "dark" ? <LightModeOutlined /> : <DarkModeOutlined />}
+      </button>
 
       {/* Notification */}
       <div className="header-dropdown-wrapper">
@@ -49,8 +50,9 @@ function Header({ setMobileOpen }) {
             setNotificationOpen(!notificationOpen);
             setProfileOpen(false);
           }}
+          aria-label="Notifications"
         >
-          🔔
+          <NotificationsNoneOutlined />
           <span className="notification-badge">4</span>
         </button>
 
@@ -102,10 +104,9 @@ function Header({ setMobileOpen }) {
 
           <div className="profile-info">
             <strong>Jason Mendonca</strong>
-            <span>Administrator</span>
+            <span>Admin · ADMIN001</span>
+            <span>jason.mendonca@dharwin.com</span>
           </div>
-
-          <span className="profile-arrow">⌄</span>
         </button>
 
         {profileOpen && (
